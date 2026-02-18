@@ -33,9 +33,9 @@
 #define NACK                0x1F
 
 /* ==================== Configuration ==================== */
-#define BOOTLOADER_TIMEOUT_MS   5000    // Wait 5s for OTA command
+#define BOOTLOADER_TIMEOUT_MS   5000    
 #define MAX_CHUNK_SIZE          1024    // Maximum data chunk size
-#define DEBUG_UART_ENABLED      1       // Enable debug messages
+#define DEBUG_UART_ENABLED      1       
 
 /* ==================== OTA Metadata Structure ==================== */
 typedef struct {
@@ -99,12 +99,6 @@ int main(void)
     MX_UART1_Init();
     MX_CRC_Init();
 
-    /* Startup banner */
-    Debug_Print("\r\n\r\n");
-    Debug_Print("================================================\r\n");
-    Debug_Print("  STM32F407 Dual-Bank Bootloader v2.0\r\n");
-    Debug_Print("  Build: " __DATE__ " " __TIME__ "\r\n");
-    Debug_Print("================================================\r\n");
 
     /* Load and validate OTA metadata */
     bool metadata_valid = Load_Metadata();
@@ -212,7 +206,6 @@ int main(void)
     Error_Handler();
 }
 
-/* ==================== Bootloader UART Command Handler ==================== */
 void Bootloader_UART_Handler(void)
 {
     uint8_t cmd;
@@ -442,7 +435,7 @@ void Bootloader_UART_Handler(void)
     }
 }
 
-/* ==================== Flash Operations ==================== */
+
 bool Flash_Erase_Bank(uint32_t bank_addr)
 {
     HAL_FLASH_Unlock();
@@ -575,7 +568,6 @@ uint32_t Calculate_CRC32(uint32_t addr, uint32_t size)
     return crc;
 }
 
-/* ==================== Bank Verification ==================== */
 bool Verify_Bank(uint32_t bank_addr, uint32_t size, uint32_t expected_crc)
 {
     /* Sanity checks */
@@ -609,7 +601,7 @@ bool Verify_Bank(uint32_t bank_addr, uint32_t size, uint32_t expected_crc)
     return (actual_crc == expected_crc);
 }
 
-/* ==================== Jump to Application ==================== */
+
 void Jump_To_Application(uint32_t app_addr)
 {
     /* Validate stack pointer */
@@ -743,7 +735,7 @@ void Init_Metadata(void)
     ota_metadata.ota_in_progress = 0;
 }
 
-/* ==================== UART Utilities ==================== */
+
 void Send_Response(uint8_t response)
 {
     HAL_UART_Transmit(&huart1, &response, 1, 100);
@@ -768,7 +760,6 @@ void Debug_Printf(const char* format, ...)
 #endif
 }
 
-/* ==================== Peripheral Initialization ==================== */
 void MX_UART1_Init(void)
 {
     huart1.Instance = USART1;
