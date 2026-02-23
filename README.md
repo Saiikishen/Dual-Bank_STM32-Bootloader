@@ -22,7 +22,7 @@ Production-ready **OTA bootloader** for STM32F407VGT6 using external W25Q64FV (8
 ### Internal Flash (1MB)
 | Region | Address | Size | Sectors | Content |
 |--------|---------|------|---------|---------|
-| Bootloader | `0x08000000` | 32 KB | 0-1 | OTA logic  [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/80763925/437db425-3b4c-4c43-aa12-8cfce91a2727/w25q64fv.c) |
+| Bootloader | `0x08000000` | 32 KB | 0-1 | OTA logic  [Saiikishen/WinbondW25Q64FV_STM32F407VGTdriver](https://github.com/Saiikishen/WinbondW25Q64FV_STM32F407VGTdriver) |
 | App Slot | `0x08008000` | 960 KB | 2-11 | V1/V2 active image |
 
 ### External W25Q64FV (8MB)
@@ -30,7 +30,7 @@ Production-ready **OTA bootloader** for STM32F407VGT6 using external W25Q64FV (8
 |--------|---------|------|---------|
 | V1 Backup | `0x000000` | 960 KB | Rollback source |
 | V2 Staging | `0x100000` | 960 KB | Incoming OTA image |
-| Metadata | `0x200000` | 4 KB | State, sizes, CRCs  [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/80763925/471ace67-03a7-4d3e-b13f-6e2b88f75d57/w25q64fv.h) |
+| Metadata | `0x200000` | 4 KB | State, sizes, CRCs [Saiikishen/WinbondW25Q64FV_STM32F407VGTdriver](https://github.com/Saiikishen/WinbondW25Q64FV_STM32F407VGTdriver) |
 
 ## Hardware Wiring (ESP32 → STM32)
 
@@ -65,7 +65,7 @@ CRC32: Poly=`0xEDB88320`, Init=`0xFFFFFFFF`, Final=`~crc` (both sides identical)
 | `bootloader_utils.[hc]` | CRC32, int flash R/W, metadata, JumpToApp |
 | `ota_uart.[hc]` | UART protocol, packet handling |
 | `main_bootloader.[hc]` | State machine, PA0 trigger |
-| `w25q64fv.[hc]` | External SPI flash driver (user-provided) [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/80763925/437db425-3b4c-4c43-aa12-8cfce91a2727/w25q64fv.c) |
+| `w25q64fv.[hc]` | External SPI flash driver (user-provided) [Saiikishen/WinbondW25Q64FV_STM32F407VGTdriver](https://github.com/Saiikishen/WinbondW25Q64FV_STM32F407VGTdriver) |
 
 **App V1/V2**: Standard projects, ORIGIN=`0x08008000`, `VECT_TAB_OFFSET=0x8000`.
 
@@ -116,6 +116,3 @@ CRC32: Poly=`0xEDB88320`, Init=`0xFFFFFFFF`, Final=`~crc` (both sides identical)
 | CRC mismatch | Poly/init/final differ | Self-test `0xCBF43926` both sides |
 | SPI init fail | PB12-15 wrong | CubeMX SPI2 NSS=Software |
 
-## License
-
-MIT — free for commercial/open-source use. [ppl-ai-file-upload.s3.amazonaws](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/80763925/437db425-3b4c-4c43-aa12-8cfce91a2727/w25q64fv.c)
