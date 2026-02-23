@@ -1,9 +1,5 @@
 # STM32F407VGT OTA Bootloader with W25Q64FV Backup & Rollback
 
-[
-[
-[
-
 Production-ready **OTA bootloader** for STM32F407VGT6 using external W25Q64FV (8MB SPI NOR flash) for automatic V1 backup and V2 staging. Supports full rollback on OTA failure. No application code changes required.
 
 ## Features
