@@ -101,8 +101,36 @@ CRC32: Poly=`0xEDB88320`, Init=`0xFFFFFFFF`, Final=`~crc` (both sides identical)
 3. ESP32 '1' → rollback V1 (LED pattern reverts ✓)
 4. Power-loss mid-OTA → resumes ✓
 ```
+## App V1/V2 Changes
 
-## Troubleshooting
+### 1. `STM32F407VGTX_FLASH.ld` (Core → Linker Script)
+
+```ld
+MEMORY {
+  FLASH (rx) : ORIGIN = 0x08008000, LENGTH = 960K   /* App slot */
+  RAM   (xrw): ORIGIN = 0x20000000, LENGTH = 128K
+}
+```
+
+### 2. `Core/Src/system_stm32f4xx.c` — Enable + Set Offset
+
+```c
+#if defined(USER_VECT_TAB_ADDRESS)
+/* #define VECT_TAB_SRAM */  /* Keep commented */
+#define VECT_TAB_BASE_ADDRESS   FLASH_BASE
+
+#if !defined(VECT_TAB_OFFSET)
+#define VECT_TAB_OFFSET         0x00008000U   /* 32KB offset */
+#endif /* VECT_TAB_OFFSET */
+#endif /* USER_VECT_TAB_ADDRESS */
+```
+
+**Project Defines** (Properties → C/C++ Build → MCU GCC Compiler → Preprocessor → Add):
+```
+USER_VECT_TAB_ADDRESS
+```
+
+g
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
