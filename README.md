@@ -76,14 +76,6 @@ CRC32: Poly=`0xEDB88320`, Init=`0xFFFFFFFF`, Final=`~crc` (both sides identical)
 5. ST-LINK Utility: 0x08000000
 ```
 
-### App V1/V2
-```
-1. New CubeMX project: disable SPI2/USART1/PA0
-2. Linker: FLASH ORIGIN=0x08008000 LENGTH=960K
-3. system_stm32f4xx.c: VECT_TAB_OFFSET=0x00008000U
-4. Build → fw_v1.bin / fw_v2.bin
-5. ST-LINK: 0x08008000 (V1 only)
-```
 
 ### ESP32 Arduino
 ```
@@ -130,7 +122,6 @@ MEMORY {
 USER_VECT_TAB_ADDRESS
 ```
 
-g
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
