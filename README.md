@@ -125,9 +125,9 @@ USER_VECT_TAB_ADDRESS
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| No LED after bootloader | App linker `0x08000000` | ORIGIN=`0x08008000` |
-| No LED after OTA | `VECT_TAB_OFFSET=0x0` | `0x00008000U` |
+| No V1 after bootloader | App linker `0x08000000` | ORIGIN=`0x08008000` |
+| No V2 after OTA | `VECT_TAB_OFFSET=0x0` | `0x00008000U` |
 | START timeout | ESP32 sends too early | `0x55` READY handshake |
 | CRC mismatch | Poly/init/final differ | Self-test `0xCBF43926` both sides |
-| SPI init fail | PB12-15 wrong | CubeMX SPI2 NSS=Software |
+| SPI init fail | PB12-15 wrong | CubeMX SPI2 NSS pin shall be configured as  GPIO_Output with the user label FLASH_CS.|
 
